@@ -28,6 +28,11 @@ public class ReminderConfiguration : IEntityTypeConfiguration<Reminder>
             .IsRequired()
             .HasDefaultValue(false);
 
+        builder.Property(r => r.IsSent)
+            .IsRequired()
+            .HasDefaultValue(false);
+
         builder.HasIndex(r => r.ChatId);
+        builder.HasIndex(r => new { r.ReminderDate, r.IsSent });
     }
 }

@@ -11,4 +11,6 @@ public class Reminder
     public string Description { get; set; }
 
     public bool IsDeleted { get; set; }
+
+    public bool IsSent { get; set; }
 }

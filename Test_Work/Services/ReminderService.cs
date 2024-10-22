@@ -36,4 +36,22 @@ public class ReminderService(ReminderDbContext dbContext) : IReminderService
     {
         return await dbContext.Reminders.FindAsync(reminderId);
     }
+
+    public async Task<List<Reminder>> GetDueRemindersAsync()
+    {
+        return await dbContext.Reminders
+            .Where(r => !r.IsDeleted && r.ReminderDate <= DateTime.Now && !r.IsSent)
+            .ToListAsync();
+    }
+
+    public async Task MarkAsSentAsync(int reminderId)
+    {
+        var reminder = await dbContext.Reminders.FindAsync(reminderId);
+
+        if (reminder != null)
+        {
+            reminder.IsSent = true;
+            await dbContext.SaveChangesAsync();
+        }
+    }
 }

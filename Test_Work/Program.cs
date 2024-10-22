@@ -40,6 +40,7 @@ public class Program
         services.Configure<TelegramBotSettings>(configuration.GetSection("TelegramBot"));
 
         services.AddHostedService<TelegramBotHostedService>();
+        services.AddHostedService<ReminderHostedService>();
 
         services.AddSingleton<ITelegramBotClient>(sp =>
         {
